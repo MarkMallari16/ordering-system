@@ -1,20 +1,21 @@
-package mallari_markchristian_g_2;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package registration;
 
-
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
-
+    
+    private static final String username = "mark16", password = "markpogi123";
     public static String usernameTxtField;
     public static String passwordTxtField;
-    public static Register reg;
-    public static Admin admin;
-    public static User user;
-
+    public Registration reg;
+    
     public Login() {
         initComponents();
-        Database.addAdmin();
-
     }
 
     /**
@@ -26,14 +27,12 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
         jLabel1 = new javax.swing.JLabel();
         txtFieldUsername = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtFieldPassword = new javax.swing.JPasswordField();
         loginBtn = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,51 +59,37 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Don't have account? Register");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registerBtnLink(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
+                .addGap(106, 106, 106)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtFieldPassword)
                     .addComponent(jLabel3)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtFieldUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
-                        .addComponent(txtFieldPassword)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(txtFieldUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addComponent(loginBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addGap(15, 15, 15))
+                .addGap(44, 44, 44))
         );
 
         pack();
@@ -115,61 +100,23 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFieldUsernameActionPerformed
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-        usernameTxtField = txtFieldUsername.getText().trim();
+        usernameTxtField = txtFieldUsername.getText();
         char[] passwordChars = txtFieldPassword.getPassword();
         passwordTxtField = new String(passwordChars);
-
-        if (usernameTxtField.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Username cannot be empty.");
-            return; // Exit the method
-        }
-
-        String[] userInfo = null;
-
-        for (String[] info : Database.userDb.values()) {
-            if (info[2].equals(usernameTxtField)) {
-                userInfo = info;
-                break;
-            }
-        }
-
-        if (userInfo != null) {
-            if (userInfo[3].equals(passwordTxtField)) {
-
-                String role = userInfo[4];
-
-                JOptionPane.showMessageDialog(this, role.toUpperCase() + " Login successful!");
-
-                navigateDashboard(role);
+        
+        if (usernameTxtField.equals(username) && passwordTxtField.equals(password)) {
+            JOptionPane.showMessageDialog(this, "Login successful!");
+            if (reg == null) {
+                reg = new Registration();
+                disposeForm();
+                reg.setVisible(true);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Invalid password.");
+            JOptionPane.showMessageDialog(this, "Invalid username or password.");
         }
+        Arrays.fill(passwordChars, '\0');
+        txtFieldPassword.setText("");
     }//GEN-LAST:event_loginBtnActionPerformed
-    private void navigateDashboard(String role) {
-        if (role.equals("admin")) {
-            if (admin == null || !admin.isVisible()) {
-                admin = new Admin();
-             
-                admin.setVisible(true);
-                 disposeForm();
-            }
-        } else if (role.equals("user")) {
-            if (user == null || !admin.isVisible()) {
-                user = new User();
-                
-                user.setVisible(true);
-                disposeForm();
-            }
-        }
-    }
-    private void registerBtnLink(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnLink
-        if (reg == null) {
-            reg = new Register();
-            disposeForm();
-            reg.setVisible(true);
-        }
-    }//GEN-LAST:event_registerBtnLink
     private void disposeForm() {
         this.dispose();
     }
@@ -200,7 +147,6 @@ public class Login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -211,11 +157,9 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton loginBtn;
     private javax.swing.JPasswordField txtFieldPassword;
     private javax.swing.JTextField txtFieldUsername;
