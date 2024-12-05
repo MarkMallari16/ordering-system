@@ -220,7 +220,7 @@ public class User extends javax.swing.JFrame {
                     tblRowProductQuantity = (String) tblProductList.getValueAt(row, 3);
 
                     if (orderProduct == null || !orderProduct.isVisible()) {
-                        orderProduct = new Order();
+                        orderProduct = new Order(tblRowProductId,tblRowProductName,tblRowProductPrice,tblRowProductQuantity);
                         orderProduct.setVisible(true);
                         disposeForm();
                     }

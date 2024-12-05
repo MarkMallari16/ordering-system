@@ -12,8 +12,13 @@ public class Order extends javax.swing.JFrame {
 
     public static String tblRowProductName, tblRowProductPrice, tblRowProductQuantity;
 
-    public Order() {
+    public Order(int orderId,String name,String price,String quantity) {
         initComponents();
+        
+        txtFieldProductId.setText(null);
+        txtFieldProductName.setText(null);
+        txtFieldProductPrice.setText(null);
+        
     }
 
     /**
@@ -131,7 +136,7 @@ public class Order extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Order().setVisible(true);
+//                new Order().setVisible(true);
             }
         });
     }
