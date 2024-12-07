@@ -138,9 +138,6 @@ public class Order extends javax.swing.JFrame {
 
         for (int productId : Database.productDb.keySet()) {
             String[] details = Database.productDb.get(productId);
-            for (String detail : details) {
-                System.out.println(detail);
-            }
             if (details[0].equals(productName)) {
                 productInfos = details;
                 break;

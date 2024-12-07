@@ -190,8 +190,11 @@ public class Admin extends javax.swing.JFrame {
             return;
         }
 
-        if (!isValidPrice(price) || !isValidQuantity(quantity)) {
+        if (!isValidPrice(price)) {
             txtFieldPrice.setText(null);
+            return;
+        }
+        if (!isValidQuantity(quantity)) {
             txtFieldQuantity.setText(null);
             return;
         }

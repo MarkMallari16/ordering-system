@@ -12,7 +12,7 @@ import static mallari_markchristian_g_2.Admin.tblRowProductId;
 import static mallari_markchristian_g_2.Admin.tblRowProductName;
 import static mallari_markchristian_g_2.Admin.tblRowProductPrice;
 import static mallari_markchristian_g_2.Admin.tblRowProductQuantity;
-import static mallari_markchristian_g_2.Admin.updProduct;
+
 
 /**
  *
@@ -231,7 +231,7 @@ public class User extends javax.swing.JFrame {
     }
 
     private void orderList() {
-        String[] colums = {"Order ID", "Product Name", "Product Price", "Product Quantity", "Product Amount"};
+        String[] colums = {"Order ID", " Name", "Price", "Quantity", "Amount"};
         DefaultTableModel model = new DefaultTableModel(colums, 0);
 
         for (int tblOrderId : Database.orderDb.keySet()) {

@@ -59,7 +59,7 @@ public class Register extends javax.swing.JFrame {
         jLabel5.setText("Password");
 
         jButton1.setText("Already have an account?");
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton1.setBorder(null);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginLink(evt);
@@ -97,8 +97,8 @@ public class Register extends javax.swing.JFrame {
                                 .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(144, 144, 144)
-                        .addComponent(jButton1)))
+                        .addGap(129, 129, 129)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -124,9 +124,9 @@ public class Register extends javax.swing.JFrame {
                 .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         pack();
@@ -152,7 +152,9 @@ public class Register extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "All fields must be filled out.");
             return;
         }
-
+        if (!isValidAge(age)){
+            return;
+        }
         Database.userDb.put(userId, regInfos);
 
         JOptionPane.showMessageDialog(this, "Registration successful!");
@@ -166,6 +168,17 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegisterActionPerformed
     private void disposeForm() {
         this.dispose();
+    }
+
+    private boolean isValidAge(String txtAgeField) {
+        try {
+            Integer.parseInt(txtAgeField);
+            return true;
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Age must be a number.");
+            return false;
+
+        }
     }
 
     private void navigateToLogin() {
