@@ -185,8 +185,6 @@ public class Admin extends javax.swing.JFrame {
 
         String[] productInfos = {productName, price, quantity};
 
-        productId++;
-
         if (productName.isEmpty() || price.isEmpty() || quantity.isEmpty()) {
             JOptionPane.showMessageDialog(this, "You must fill all fields");
             return;
@@ -200,6 +198,7 @@ public class Admin extends javax.swing.JFrame {
 
         Database.productDb.put(productId, productInfos);
 
+        productId++;
         txtFieldProductName.setText(null);
         txtFieldPrice.setText(null);
         txtFieldQuantity.setText(null);

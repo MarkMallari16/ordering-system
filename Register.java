@@ -67,7 +67,7 @@ public class Register extends javax.swing.JFrame {
         });
 
         btnRegister.setBackground(new java.awt.Color(0, 102, 255));
-        btnRegister.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRegister.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         btnRegister.setForeground(new java.awt.Color(255, 255, 255));
         btnRegister.setText("REGISTER");
         btnRegister.addActionListener(new java.awt.event.ActionListener() {

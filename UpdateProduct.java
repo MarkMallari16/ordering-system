@@ -48,7 +48,7 @@ public class UpdateProduct extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
         updateBtn = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        deleteBtn1 = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,13 +89,13 @@ public class UpdateProduct extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         jLabel5.setText("Update Product Information");
 
-        deleteBtn1.setBackground(new java.awt.Color(255, 51, 51));
-        deleteBtn1.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        deleteBtn1.setForeground(new java.awt.Color(255, 255, 255));
-        deleteBtn1.setText("DELETE");
-        deleteBtn1.addActionListener(new java.awt.event.ActionListener() {
+        deleteBtn.setBackground(new java.awt.Color(255, 51, 51));
+        deleteBtn.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        deleteBtn.setForeground(new java.awt.Color(255, 255, 255));
+        deleteBtn.setText("DELETE");
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteBtn1ActionPerformed(evt);
+                deleteBtnActionPerformed(evt);
             }
         });
 
@@ -106,7 +106,7 @@ public class UpdateProduct extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(deleteBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel5)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -146,7 +146,7 @@ public class UpdateProduct extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(deleteBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(32, Short.MAX_VALUE))
@@ -183,9 +183,16 @@ public class UpdateProduct extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldProductNameActionPerformed
 
-    private void deleteBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtn1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_deleteBtn1ActionPerformed
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        newProductIdString = txtFieldProductId.getText();
+        newProductInt = Integer.parseInt(newProductIdString);
+
+        Database.productDb.remove(newProductInt);
+
+        JOptionPane.showMessageDialog(this, "Product deleted successfully");
+        navigateToAdmin();
+
+    }//GEN-LAST:event_deleteBtnActionPerformed
     private void navigateToAdmin() {
         if (admCheck == null || !admCheck.isVisible()) {
             Admin adm = new Admin();
@@ -231,7 +238,7 @@ public class UpdateProduct extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton deleteBtn1;
+    private javax.swing.JButton deleteBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
