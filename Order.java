@@ -4,21 +4,26 @@
  */
 package mallari_markchristian_g_2;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author STI
  */
 public class Order extends javax.swing.JFrame {
 
+    public static String productName, productPrice, productQuantity, productAmount;
     public static String tblRowProductName, tblRowProductPrice, tblRowProductQuantity;
+    public static int orderId = 1000;
+    public static User user;
 
-    public Order(int orderId,String name,String price,String quantity) {
+    public Order(int productId, String name, String price, String quantity) {
         initComponents();
-        
-        txtFieldProductId.setText(null);
-        txtFieldProductName.setText(null);
-        txtFieldProductPrice.setText(null);
-        
+
+        txtFieldProductId.setText("" + productId);
+        txtFieldProductName.setText(name);
+        txtFieldProductPrice.setText(price);
+
     }
 
     /**
@@ -45,6 +50,11 @@ public class Order extends javax.swing.JFrame {
         jLabel1.setText("Product ID");
 
         txtFieldProductId.setEnabled(false);
+        txtFieldProductId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFieldProductIdActionPerformed(evt);
+            }
+        });
 
         txtFieldProductName.setEnabled(false);
 
@@ -60,6 +70,11 @@ public class Order extends javax.swing.JFrame {
         orderBtn.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         orderBtn.setForeground(new java.awt.Color(255, 255, 255));
         orderBtn.setText("ORDER");
+        orderBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,29 +97,91 @@ public class Order extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFieldProductId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(txtFieldProductId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtFieldProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFieldProductName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFieldProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(txtFieldProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFieldProductQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtFieldProductQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(orderBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                .addGap(28, 28, 28))
+                .addComponent(orderBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtFieldProductIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldProductIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFieldProductIdActionPerformed
+
+    private void orderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderBtnActionPerformed
+
+        productName = txtFieldProductName.getText();
+        productPrice = txtFieldProductPrice.getText();
+        productQuantity = txtFieldProductQuantity.getText();
+
+        double price = Double.parseDouble(txtFieldProductPrice.getText());
+        int quantity = Integer.parseInt(txtFieldProductQuantity.getText());
+
+        String[] productInfos = null;
+
+        for (int productId : Database.productDb.keySet()) {
+            String[] details = Database.productDb.get(productId);
+            for (String detail : details) {
+                System.out.println(detail);
+            }
+            if (details[0].equals(productName)) {
+                productInfos = details;
+                break;
+            }
+
+        }
+        //get the quantity
+        int availableQuantity = Integer.parseInt(productInfos[2]);
+
+        if (quantity > availableQuantity) {
+            JOptionPane.showMessageDialog(this, "Insufficient stock. Available quantity: " + availableQuantity);
+            navigateToUserDashboard();
+            return;
+        }
+
+        double totalAmount = price * quantity;
+
+        String[] orderInfos = {productName, productPrice, productQuantity, String.valueOf(totalAmount)};
+        Database.orderDb.put(orderId, orderInfos);
+        orderId++;
+        availableQuantity -= quantity;
+
+        productInfos[2] = String.valueOf(availableQuantity);
+
+        txtFieldProductQuantity.setText(null);
+
+        JOptionPane.showMessageDialog(this, "Order added successfully! " + " Remaining stock: " + availableQuantity);
+        navigateToUserDashboard();
+
+    }//GEN-LAST:event_orderBtnActionPerformed
+    private void navigateToUserDashboard() {
+        if (user == null || !user.isVisible()) {
+            user = new User();
+            disposeForm();
+            user.setVisible(true);
+        }
+    }
+
+    public void disposeForm() {
+        this.dispose();
+    }
 
     /**
      * @param args the command line arguments

@@ -18,7 +18,7 @@ public class Admin extends javax.swing.JFrame {
     public static String productName, price, quantity;
     public static String tblRowProductName, tblRowProductPrice, tblRowProductQuantity;
     public static int productId = 1000, tblRowProductId;
-    public static Login log;
+    public static Login logCheck;
     public static UpdateProduct updProduct;
 
     public Admin() {
@@ -40,26 +40,28 @@ public class Admin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtFieldPrice = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtQuantity = new javax.swing.JTextField();
+        txtFieldQuantity = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         btnProductAdd = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProduct = new javax.swing.JTable();
-        btnLogout = new javax.swing.JButton();
+        btnLogout1 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jLabel1.setText("Admin Dashboard");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/dashboard.png"))); // NOI18N
+        jLabel1.setText(" Admin Dashboard");
 
         jLabel2.setText("Product name");
 
         jLabel3.setText("Price");
 
-        jLabel4.setText("QTY");
+        jLabel4.setText("Quantity");
 
         btnProductAdd.setBackground(new java.awt.Color(0, 102, 255));
-        btnProductAdd.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnProductAdd.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         btnProductAdd.setForeground(new java.awt.Color(255, 255, 255));
         btnProductAdd.setText("ADD");
         btnProductAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -81,15 +83,17 @@ public class Admin extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblProduct);
 
-        btnLogout.setBackground(new java.awt.Color(255, 51, 51));
-        btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnLogout.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogout.setText("LOGOUT");
-        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+        btnLogout1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnLogout1.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogout1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/shutdown.png"))); // NOI18N
+        btnLogout1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogoutActionPerformed(evt);
+                btnLogout1ActionPerformed(evt);
             }
         });
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        jLabel5.setText("Product List");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,85 +103,125 @@ public class Admin extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnLogout))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(txtFieldProductName, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
-                            .addComponent(txtFieldPrice)
-                            .addComponent(txtQuantity))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnProductAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 848, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLogout1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(txtFieldProductName, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                                    .addComponent(txtFieldPrice)
+                                    .addComponent(txtFieldQuantity))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnProductAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(30, 30, 30))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(btnLogout1))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnLogout)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFieldProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(txtFieldProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFieldPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(txtFieldPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnProductAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtFieldQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnProductAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)))
+                .addComponent(jLabel5)
+                .addGap(8, 8, 8)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private boolean isValidPrice(String textField) {
+        try {
+            Double.parseDouble(textField);
+            return true;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Price must be a number.");
+            return false;
+        }
 
+    }
+
+    private boolean isValidQuantity(String textField) {
+        try {
+            Integer.parseInt(textField);
+            return true;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Quantity must be a number.");
+            return false;
+        }
+    }
     private void btnProductAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductAddActionPerformed
         productName = txtFieldProductName.getText();
         price = txtFieldPrice.getText();
-        quantity = txtQuantity.getText();
+        quantity = txtFieldQuantity.getText();
 
         String[] productInfos = {productName, price, quantity};
 
         productId++;
 
+        if (productName.isEmpty() || price.isEmpty() || quantity.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "You must fill all fields");
+            return;
+        }
+
+        if (!isValidPrice(price) || !isValidQuantity(quantity)) {
+            txtFieldPrice.setText(null);
+            txtFieldQuantity.setText(null);
+            return;
+        }
+
         Database.productDb.put(productId, productInfos);
 
         txtFieldProductName.setText(null);
         txtFieldPrice.setText(null);
-        txtQuantity.setText(null);
+        txtFieldQuantity.setText(null);
 
         JOptionPane.showMessageDialog(this, "Product added successfully");
         tableProductData();
 
     }//GEN-LAST:event_btnProductAddActionPerformed
+
+    private void btnLogout1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogout1ActionPerformed
+        if (logCheck == null) {
+            Login login = new Login();
+
+            JOptionPane.showMessageDialog(this, "Successfully logout");
+            disposeForm();
+            login.setVisible(true);
+        }
+    }//GEN-LAST:event_btnLogout1ActionPerformed
     private void disposeForm() {
         this.dispose();
     }
-    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        if (log == null) {
-            log = new Login();
-            disposeForm();
-            log.setVisible(true);
-            JOptionPane.showMessageDialog(this, "Logout successfully");
-        }
 
-    }//GEN-LAST:event_btnLogoutActionPerformed
     private void tableProductData() {
         String[] colums = {"Product ID", "Product Name", "Price", "Quantity"};
         DefaultTableModel model = new DefaultTableModel(colums, 0);
@@ -255,16 +299,17 @@ public class Admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnLogout1;
     private javax.swing.JButton btnProductAdd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblProduct;
     private javax.swing.JTextField txtFieldPrice;
     private javax.swing.JTextField txtFieldProductName;
-    private javax.swing.JTextField txtQuantity;
+    private javax.swing.JTextField txtFieldQuantity;
     // End of variables declaration//GEN-END:variables
 }
