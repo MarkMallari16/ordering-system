@@ -131,6 +131,10 @@ public class Order extends javax.swing.JFrame {
         productPrice = txtFieldProductPrice.getText();
         productQuantity = txtFieldProductQuantity.getText();
 
+        if (!isValidQuantity(productQuantity)) {
+            return;
+        }
+
         double price = Double.parseDouble(txtFieldProductPrice.getText());
         int quantity = Integer.parseInt(txtFieldProductQuantity.getText());
 
@@ -173,6 +177,19 @@ public class Order extends javax.swing.JFrame {
             user = new User();
             disposeForm();
             user.setVisible(true);
+        }
+    }
+
+    private boolean isValidQuantity(String textField) {
+        try {
+            if (!textField.isEmpty()) {
+                Integer.parseInt(textField);
+            }
+            return true;
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Quantity must be number and not empty! Try Again.");
+            return false;
         }
     }
 
